@@ -1,0 +1,5 @@
+LLDA_Train.py is for training
+LLDA_Test.py is for classfication
+PHI is the phi(topic words distribution) saved in file
+stopword.txt is the stopwords file
+total200 is the example of training data
