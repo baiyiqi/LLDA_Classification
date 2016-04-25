@@ -10,11 +10,20 @@ from optparse import OptionParser
 
 
 
-IP = "129.63.16.167" #ip for save data
-PORT = 27017         #port for save data
-DB = "KuaiWenCategory"  #db for save data
-COLLECTION = "APP"      #defined by each application
-TPNUM = 100             #top numbers of keywords under each category to save in db
+IP = "129.63.16.167"    # ip mongodb
+PORT = 27017            # port mongodb
+DB = "KuaiWenCategory"  # db mongodb
+COLLECTION = "APP"      # collection mongodb
+
+'''top numbers of keywords under each category to save in db,
+    if training data [0, 500], set TPNUM = 50
+    if training data [500, 1000], set TPNUM = 100
+    if training data [1000, 2000], set TPNUM = 150
+    if training data [2000, infinity], set TPNUM = 200
+
+'''
+TPNUM = 100
+
 
 
 
@@ -48,8 +57,8 @@ def load_traincorpus(fname):
             corpus.append(doc)
             labels.append(label1)
     f.close()
-
     return labelmap.keys(), corpus, labels
+
 
 
 
@@ -73,12 +82,13 @@ def save2mongo(phiData):
 
 
 
+
+
 '''main file  alpha = 50 / T, beta = 0.1'''
 def TrainLLDA(trainfile):
     '''
     :param : trainfile (eg: total200)
     '''
-
     lbfilter = "common"
     #load training data
     labelset, corpus, labels = load_traincorpus(trainfile)
@@ -111,11 +121,11 @@ def TrainLLDA(trainfile):
             print "%s: %.4f" % (llda.vocas[w], phi[k,w])
             T_W_Dist[label][llda.vocas[w]] = phi[k,w]
 
-
     #save phi to database
     save2mongo(T_W_Dist)
     #save phi to file
     numpy.savetxt("PHI", phi, delimiter=",")
+
 
 
 

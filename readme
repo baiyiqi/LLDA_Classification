@@ -1,5 +1,5 @@
-LLDA_Train.py is for training
-LLDA_Test.py is for classfication
-PHI is the phi(topic words distribution) saved in file
-stopword.txt is the stopwords file
-total200 is the example of training data
+1. LLDA_Train.py is for training, inside words is utf-8
+2. LLDA_Test.py is for classfication, inside word is unicode
+3. PHI is the phi(topic words distribution) saved in file
+4. stopword.txt is the stopwords file
+5. total200 is the example of training data
